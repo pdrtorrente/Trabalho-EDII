@@ -1,3 +1,5 @@
+g := ./contagens
+
 all : main.o contagem_leituras.o ctrlF.o contagem_intersecoes.o ordena_digitos.o
 	gcc -o prog.exe ordena_digitos.o ordena_digitos.h contagem_leituras.o ctrlF.o contagem_intersecoes.o contagem_leituras.h ctrlF.h contagem_intersecoes.h main.o
 
@@ -20,4 +22,4 @@ ordena_digitos.o : ordena_digitos.c ordena_digitos.h
 	gcc -o ordena_digitos.o -c ordena_digitos.c
 
 clean :
-	-del -f *.exe *.o
+	-del -f *.exe *.o arquivo_pos_fragmentos.csv

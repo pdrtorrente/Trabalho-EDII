@@ -3,9 +3,11 @@
 #include "ordena_digitos.h"
 
 int ordenaDigitos(int** A, int n, int posicao){
-    int digito;
-    int B[10];
-    int C[n][2];
+    int digito, B[10];
+    int **C = malloc(sizeof (int*) * n);
+    for (int i = 0; i < n; i++) {
+        C[i] = malloc(sizeof (int) * 2);
+    }
 
     for (int i = 0; i < 10; i++){
         B[i] = 0;
@@ -32,7 +34,10 @@ int ordenaDigitos(int** A, int n, int posicao){
     for (int i = 0; i < n; i++){
         A[i][0] = C[i][0];
         A[i][1] = C[i][1];
+        free(C[i]);
     }
+
+    free(C);
 
     return 1;
 }

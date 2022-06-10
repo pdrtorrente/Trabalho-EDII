@@ -2,24 +2,49 @@
 #include <stdlib.h>
 #include "contagem_leituras.h"
 #include <time.h>
+#include <string.h>
+#include <math.h>
 
 int main (void) {
     clock_t t;
-    FILE *f1, *f2, *f3, *f_out, *arquivo_pos_fragmentos;
-    f1 = fopen("genoma_grande.txt", "r");
-    f2 = fopen("pos_genes_grande.csv", "r");
-    f3 = fopen("fragmentos_medio.txt", "r");
-    arquivo_pos_fragmentos = fopen("arquivo_pos_fragmentos.csv", "w");
-    f_out = fopen("contagens.txt", "w");
+    FILE *f1, *f2, *f3, *f_out;
 
-    t = clock();
-    contagemLeituras(f1, f2, f3, arquivo_pos_fragmentos, 10000, 3000, f_out);
-    t = clock() - t; 
+    // Roda o programa para todas as combinações de arquivos
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            for (int k = 0; k < 3; k++) {
+                char TAMANHOS[3][32] = {"pequeno", "medio", "grande"};
+                char ARQUIVOS[3][64] = {"genoma_", "pos_genes_", "fragmentos_"};
 
-    fclose(f1);
-    fclose(f2);
-    fclose(f_out);
-    fclose(arquivo_pos_fragmentos);
+                char nome1[50], nome2[50], nome3[50]; 
+                sprintf(nome1, "%s%s.txt", ARQUIVOS[0], TAMANHOS[i]);
+                sprintf(nome2, "%s%s.csv", ARQUIVOS[1], TAMANHOS[j]);
+                sprintf(nome3, "%s%s.txt", ARQUIVOS[2], TAMANHOS[k]);
 
-    printf("Tempo de execucao: %lf", ((double)t)/((CLOCKS_PER_SEC/1000)));
+                f1 = fopen(nome1, "r");
+                f2 = fopen(nome2, "r");
+                f3 = fopen(nome3, "r");
+
+                char nome_f_out[50];
+                sprintf(nome_f_out, "./contagens/GEN_%s__POS_GEN_%s__FRAG_%s.txt", TAMANHOS[i], TAMANHOS[j], TAMANHOS[k]);
+                f_out = fopen(nome_f_out, "w");
+
+                printf("[%d.%d.%d] Fazendo o arquivo com %s, %s e %s\n", i+1, j+1, k+1, nome1, nome2, nome3);
+
+                // Inicialização do clock() e medição do tempo para a função contagemLeituras()
+                t = clock();
+                contagemLeituras(f1, f2, f3, 100*pow(10, j), 300*pow(10, k), f_out);
+                t = clock() - t;
+
+                printf("Tempo de execucao: %lf\n", ((double)t)/((CLOCKS_PER_SEC/1000)));
+
+                fclose(f1);
+                fclose(f2);
+                fclose(f3);
+                fclose(f_out);
+            }
+        }
+    }
+
+    printf("===== OPERACAO FINALIZADA COM SUCESSO =====\n");
 }

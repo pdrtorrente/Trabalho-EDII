@@ -3,7 +3,7 @@
 #include "ordena_digitos.h"
 #include "contagem_intersecoes.h"
 
-int** definirIntervalos (FILE* arq, unsigned int num_linhas) {
+int** definirIntervalos (FILE* arq, int num_linhas) {
     // Alocação dinâmica de uma matriz n x 2
     int **intervalos = malloc(sizeof(int*) * num_linhas);
     if (intervalos == NULL) {
@@ -22,6 +22,14 @@ int** definirIntervalos (FILE* arq, unsigned int num_linhas) {
     }
 
     return intervalos;
+}
+
+int excluirIntervalo (int **intervalo, int num_linhas) {
+    // Deletar o intervalo
+    for (int i = 0; i < num_linhas; i++) {
+        free(intervalo[i]);
+    }
+    free(intervalo);
 }
 
 int contagemIntersecoes (FILE *arq_A, FILE *arq_B, int nA, int nB, FILE *saida) {
@@ -53,5 +61,8 @@ int contagemIntersecoes (FILE *arq_A, FILE *arq_B, int nA, int nB, FILE *saida) 
         fprintf(saida, "%d\n", contagens[i]);
     }
 
-    return 1;
+    excluirIntervalo(A, nA);
+    excluirIntervalo(B, nB);
+
+    return 0;
 }
