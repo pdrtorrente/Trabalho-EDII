@@ -24,7 +24,7 @@ int** definirIntervalos (FILE* arq, int num_linhas) {
     return intervalos;
 }
 
-int excluirIntervalo (int **intervalo, int num_linhas) {
+void excluirIntervalo (int **intervalo, int num_linhas) {
     // Deletar o intervalo
     for (int i = 0; i < num_linhas; i++) {
         free(intervalo[i]);

@@ -72,7 +72,7 @@ int main (void) {
         unsigned int i = ARQS[n] / 100, j = (ARQS[n] - 100*i)/10, k = (ARQS[n] - j*10 - i*100);
         char TAMANHOS[3][32] = {"pequeno", "medio", "grande"};
         char ARQUIVOS[3][64] = {"genoma_", "pos_genes_", "fragmentos_"};    
-        char nome1[50], nome2[50], nome3[50]; 
+        char nome1[100], nome2[100], nome3[100]; 
         sprintf(nome1, "%s%s.txt", ARQUIVOS[0], TAMANHOS[i]);
         sprintf(nome2, "%s%s.csv", ARQUIVOS[1], TAMANHOS[j]);
         sprintf(nome3, "%s%s.txt", ARQUIVOS[2], TAMANHOS[k]);
@@ -84,7 +84,7 @@ int main (void) {
         arq_pos_fragmentos = fopen("arquivo_pos_fragmentos.csv", "w+");
 
         // Cria o nome do arquivo de saida
-        char nome_f_out[50];
+        char nome_f_out[150];
         sprintf(nome_f_out, "./contagens/GEN_%s__POS_GEN_%s__FRAG_%s.txt", TAMANHOS[i], TAMANHOS[j], TAMANHOS[k]);
         f_out = fopen(nome_f_out, "w");
 

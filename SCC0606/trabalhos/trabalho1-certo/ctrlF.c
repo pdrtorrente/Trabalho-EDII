@@ -30,7 +30,7 @@ int ctrlF (FILE *arquivo_texto, FILE *arquivo_trechos, FILE *arquivo_saida){
     texto[n] = '\0';
     
     int i, j;
-    char trecho[TAMANHO_STRING_TRECHO];
+    char *trecho = malloc(sizeof(char) * TAMANHO_STRING_TRECHO);
     int s1 = strlen(texto) - 1;
     int s2;
 
@@ -42,7 +42,7 @@ int ctrlF (FILE *arquivo_texto, FILE *arquivo_trechos, FILE *arquivo_saida){
         while (i <= s1) {
             j = 0;
             while (j < s2 && texto[i + j] == trecho[j]) {
-                j++;
+                j += 1;
             }
             if (j == s2) {
                 // Imprime as posições no arquivo de saída
@@ -54,6 +54,7 @@ int ctrlF (FILE *arquivo_texto, FILE *arquivo_trechos, FILE *arquivo_saida){
     }
 
     free(texto);
+    free(trecho);
 	rewind(arquivo_saida);
 
     return 0;

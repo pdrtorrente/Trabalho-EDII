@@ -15,15 +15,15 @@ void contagemLeituras (FILE *arquivo_genoma, FILE *arquivo_pos_genes, FILE *arqu
 }
 
 int contarLinhas (FILE *arq) {
-    rewind(arq);
     char c;
     int linhas = 0;
+    // Percorre o arquivo e conta as ocorrencias de '\n'
     while ((c = fgetc(arq)) != EOF) {
         if (c == '\n') {
             linhas++;
         }
     }
+
 	rewind(arq);
-    printf("[%d linhas]\n", linhas);
     return linhas;
 }
